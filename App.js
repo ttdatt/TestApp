@@ -47,9 +47,9 @@ function quickSort(items, left, right) {
   }
 }
 
-const fetchAthelete = async atheleteId => {
+const fetchAthlete = async athleteId => {
   try {
-    const str = `https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/${atheleteId}`;
+    const str = `https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/${athleteId}`;
     console.log(str);
     const response = await axios.get(str);
     return response.data.athlete.college ?? {};
@@ -58,11 +58,11 @@ const fetchAthelete = async atheleteId => {
   }
 };
 
-const fetchAllAtheletes = async () => {
+const fetchAllAthletes = async () => {
   let i = 1;
   const colleges = {};
   while (true) {
-    const c = await fetchAthelete(i);
+    const c = await fetchAthlete(i);
     console.log(c);
     if (!c) {
       break;
@@ -89,7 +89,7 @@ const App = () => {
   const fetchData = useCallback(() => {
     const fetch = async () => {
       setIsLoading(true);
-      const colleges = await fetchAllAtheletes();
+      const colleges = await fetchAllAthletes();
       const arr = Object.values(colleges);
       quickSort(arr, 0, arr.length - 1);
       setResult(arr.slice(0, 5));
