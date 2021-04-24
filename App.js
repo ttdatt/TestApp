@@ -52,7 +52,7 @@ const fetchAthelete = async atheleteId => {
     const str = `https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/${atheleteId}`;
     console.log(str);
     const response = await axios.get(str);
-    return response?.data?.athlete?.college ?? null;
+    return response.data.athlete.college ?? {};
   } catch {
     return null;
   }
