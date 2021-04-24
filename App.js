@@ -6,8 +6,14 @@
  * @flow strict-local
  */
 
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, SafeAreaView, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  Button,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
 import axios from 'axios';
 
 function swap(items, i, j) {
@@ -76,7 +82,7 @@ const App = () => {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     const fetch = async () => {
       setIsLoading(true);
       const colleges = await fetchAllAtheletes();
@@ -90,8 +96,11 @@ const App = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <Button title="start fetching" onPress={() => fetchData()} />
       {isLoading ? (
-        <ActivityIndicator />
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <ActivityIndicator />
+        </View>
       ) : (
         result.map(i => {
           return (
