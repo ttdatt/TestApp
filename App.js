@@ -48,10 +48,14 @@ function quickSort(items, left, right) {
 }
 
 const fetchAthelete = async atheleteId => {
-  const str = `https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/${atheleteId}`;
-  console.log(str);
-  const response = await axios.get(str);
-  return response?.data?.athlete?.college ?? null;
+  try {
+    const str = `https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/${atheleteId}`;
+    console.log(str);
+    const response = await axios.get(str);
+    return response?.data?.athlete?.college ?? null;
+  } catch {
+    return null;
+  }
 };
 
 const fetchAllAtheletes = async () => {
